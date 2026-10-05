@@ -11,18 +11,22 @@ const book1 = document.getElementById("book1");
 const book2 = document.getElementById("book2");
 const book3 = document.getElementById("book3");
 const book4 = document.getElementById("book4");
+const water = document.getElementById("water")
 const water_text = document.getElementById("water_text")
 const water_checker = document.getElementById("water-check")
 const water_input = document.getElementById("water_input")
 const water_select1 = document.getElementById("water_select1")
+const earth = document.getElementById("earth")
 const earth_text = document.getElementById("earth_text")
 const earth_checker = document.getElementById("earth-check")
 const earth_input = document.getElementById("earth_input")
 const earth_select1 = document.getElementById("earth_select1")
+const fire = document.getElementById("fire")
 const fire_text = document.getElementById("fire_text")
 const fire_checker = document.getElementById("fire-check")
 const fire_input = document.getElementById("fire_input")
 const fire_select1 = document.getElementById("fire_select1")
+const air = document.getElementById("air")
 const air_text = document.getElementById("air_text")
 const air_checker = document.getElementById("air-check")
 const air_input = document.getElementById("air_input")
@@ -406,23 +410,29 @@ function checkCompletion() {
             book3.style.display = "none";
             book4.style.display = "none";
             cave.style.display = "none";
+            water.style.display = "none"
+            earth.style.display = "none"
+            fire.style.display = "none"
+            air.style.display = "none"
             tunnel_ost.play();
-            dude.style.opacity = 1;
-            dude.classList.add("big");
+            setTimeout(() => {
+                dude.style.opacity = 1;
+                dude.classList.add("big");
+            }, 700)
             setTimeout(() => {
                 document.body.style.backgroundImage = `url("images/tunnel2.png")`;
                 dude.classList.add("small");
-            }, 3000)
+            }, 3500)
             setTimeout(() => {
                 appa.classList.add("float-down");
-            }, 2000)
+            }, 3000)
             setTimeout(() => {
                 dude.style.display = "none"
                 fireworks();
-            }, 9000)
+            }, 10000)
             setTimeout(() => {
                 countdown.style.display = "block";
-            }, 13000)
+            }, 12000)
         })
     }
 }

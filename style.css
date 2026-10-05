@@ -91,7 +91,7 @@
     position: absolute;
     left: 10%;
     top: 18%;
-    opacity: 20%;
+    opacity: 0%;
     z-index: 50;
 }
 
@@ -100,7 +100,7 @@
     position: absolute;
     left: 72%;
     top: 18%;
-    opacity: 20%;
+    opacity: 0%;
     z-index: 50;
 }
 
@@ -109,7 +109,7 @@
     position: absolute;
     left: 10%;
     top: 71%;
-    opacity: 20%;
+    opacity: 0%;
     z-index: 50;
 }
 
@@ -118,7 +118,7 @@
     position: absolute;
     left: 72%;
     top: 71%;
-    opacity: 20%;
+    opacity: 0%;
     z-index: 50;
 }
 
@@ -247,7 +247,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    transition: width 3s linear;
+    transition: width 3.5s linear;
     visibility: 0;
 }
 
