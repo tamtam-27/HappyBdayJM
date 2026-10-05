@@ -6,11 +6,189 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body style="background-color: #4f9db3;">
+<body class="main">
 
-    <div class="WIP">
-        <img src="images/WIP.png" alt="construction Work-in-progress sign">
-        <div id="countdown"></div>
+    <div id="question1">
+        <br>
+        <label>
+            What was the last movie that we have seen together?
+        </label>
+        <div id="result"></div>
+
+        <span class="clickable" data-correct="Kung Fu Panda 4">Kung Fu Panda 4</span>
+        <span class="clickable" data-correct="Spider-Man: Brand New Day">Spider-Man: Brand New Day</span>
+        <span class="clickable" data-correct="Avatar Aang: Der Herr der Elemente">Avatar Aang: Der Herr der
+            Elemente</span>
+        <span class="clickable" data-correct="Die Odyssee">Die Odyssee</span>
+        <span class="clickable" data-correct="Mein Nachbar Totoro">Mein Nachbar Totoro</span>
+    </div>
+
+    <div>
+        <img id="iroh_shadow" src="images/iroh_shadow.png" style="display: none">
+        <img id="iroh" src="images/iroh.png" style="display: none">
+    </div>
+
+    <div>
+        <img id="book1" src="images/book1.jpg">
+        <img id="book2" src="images/book2.jpg">
+        <img id="book3" src="images/book3.jpg">
+        <img id="book4" src="images/book4.jpg">
+    </div>
+
+    <div id="iroh_text">
+        My dear lady, <br>
+        a task awaits in this arcady, <br>
+        remind my nephew of the elements,<br>
+        each one for its prominence.<br>
+        <br>
+        Clickable are the corners four,<br>
+        thinking required, but don't get sore,<br>
+        beware of the princesses thunderstruck,<br>
+        abrakadabra, I wish you luck.<br>
+    </div>
+
+    <div class="elements">
+        <img id="water" src="images/water.png" onclick="q_water()">
+        <div id="water_text">
+            <select id="water_select1">
+                <option value="" disabled selected>element...</option>
+                <option value="air">Air</option>
+                <option value="earth">Earth</option>
+                <option value="fire">Fire</option>
+                <option value="water">Water</option>
+            </select>
+            is the element of
+            <select id="water_select2">
+                <option value="" disabled selected>noun...</option>
+                <option value="power">power</option>
+                <option value="substance">substance</option>
+                <option value="change">change</option>
+                <option value="freedom">freedom</option>
+            </select>
+            . <br>
+            The people of the
+            <select id="water_select3">
+                <option value="" disabled selected>group...</option>
+                <option value="air nomads">Air Nomads</option>
+                <option value="earth kingdom">Earth Kingdom</option>
+                <option value="fire nation">Fire Nation</option>
+                <option value="water tribe">Water Tribe</option>
+            </select>
+            are capable of many things. They have a deep sense of community and love, that holds them together through
+            anything.
+            <br>
+            <br>
+            <br>
+            <button id="water-check">back</button>
+        </div>
+        <img id="earth" src="images/earth.png" onclick="q_earth()">
+        <div id="earth_text">
+            <select id="earth_select1">
+                <option value="" disabled selected>element...</option>
+                <option value="air">Air</option>
+                <option value="earth">Earth</option>
+                <option value="fire">Fire</option>
+                <option value="water">Water</option>
+            </select>
+            is the element of
+            <select id="earth_select2">
+                <option value="" disabled selected>noun...</option>
+                <option value="power">power</option>
+                <option value="substance">substance</option>
+                <option value="change">change</option>
+                <option value="freedom">freedom</option>
+            </select>
+            . <br>
+            The people of the
+            <select id="earth_select3">
+                <option value="" disabled selected>group...</option>
+                <option value="air nomads">Air Nomads</option>
+                <option value="earth kingdom">Earth Kingdom</option>
+                <option value="fire nation">Fire Nation</option>
+                <option value="water tribe">Water Tribe</option>
+            </select>
+            are diverse and strong. They're persistent and enduring.
+            <br>
+            <br>
+            <br>
+            <button id="earth-check">back</button>
+        </div>
+        <img id="fire" src="images/fire.png" onclick="q_fire()">
+        <div id="fire_text">
+            <select id="fire_select1">
+                <option value="" disabled selected>element...</option>
+                <option value="air">Air</option>
+                <option value="earth">Earth</option>
+                <option value="fire">Fire</option>
+                <option value="water">Water</option>
+            </select>
+            is the element of
+            <select id="fire_select2">
+                <option value="" disabled selected>noun...</option>
+                <option value="power">power</option>
+                <option value="substance">substance</option>
+                <option value="change">change</option>
+                <option value="freedom">freedom</option>
+            </select>
+            . <br>
+            The people of the
+            <select id="fire_select3">
+                <option value="" disabled selected>group...</option>
+                <option value="air nomads">Air Nomads</option>
+                <option value="earth kingdom">Earth Kingdom</option>
+                <option value="fire nation">Fire Nation</option>
+                <option value="water tribe">Water Tribe</option>
+            </select>
+            have desire and will and the energy and drive to achieve what they want.
+            <br>
+            <br>
+            <br>
+            <button id="fire-check">back</button>
+        </div>
+        <img id="air" src="images/air.png" onclick="q_air()">
+        <div id="air_text">
+            <select id="air_select1">
+                <option value="" disabled selected>element...</option>
+                <option value="air">Air</option>
+                <option value="earth">Earth</option>
+                <option value="fire">Fire</option>
+                <option value="water">Water</option>
+            </select>
+            is the element of
+            <select id="air_select2">
+                <option value="" disabled selected>noun...</option>
+                <option value="power">power</option>
+                <option value="substance">substance</option>
+                <option value="change">change</option>
+                <option value="freedom">freedom</option>
+            </select>
+            . <br>
+            The
+            <select id="air_select3">
+                <option value="" disabled selected>group...</option>
+                <option value="air nomads">Air Nomads</option>
+                <option value="earth kingdom">Earth Kingdom</option>
+                <option value="fire nation">Fire Nation</option>
+                <option value="water tribe">Water Tribe</option>
+            </select>
+            detached themselves from worldly concerns and found peace and freedom.
+            <br>
+            <br>
+            <br>
+            <button id="air-check">back</button>
+        </div>
+    </div>
+    <div>
+        <img id="azula" src="images/azula.jpg">
+    </div>
+    <canvas id="canvas"></canvas>
+
+    <div>
+        <img id="cave" src="images/cave.png">
+    </div>
+
+    <div>
+        <audio src="The_Avatars_Love.mp3" id="atla_ost"></audio>
     </div>
 
     <!-- <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.9.1/tsparticles.confetti.bundle.min.js"></script> -->

@@ -8,7 +8,205 @@
     gap: 15px;
 }
 
+.main {
+    position: relative;
+    background-color: black;
+    /* background-image: url('images/map.jpg'); */
+    height: 100dvh;
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+#canvas {
+    display: none;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    touch-action: none;
+    z-index: 101;
+}
+
+#question1 {
+    color: white;
+    text-align: center;
+    margin: 15px 0;
+
+}
+
+.clickable {
+    cursor: pointer;
+    text-decoration: underline;
+    color: antiquewhite;
+    display: block;
+    margin: 15px 0;
+    z-index: 60;
+}
+
+#result {
+    display: block;
+    text-align: center;
+    margin: 15px 0;
+}
+
+#iroh_shadow {
+    width: 200px;
+    position: absolute;
+    left: 25%;
+    bottom: 40;
+}
+
+#iroh {
+    width: 200px;
+    position: absolute;
+    left: 25%;
+    bottom: 40;
+    z-index: 56;
+}
+
+#iroh_text {
+    position: absolute;
+    left: 50%;
+    bottom: 37%;
+    transform: translateX(-50%);
+    width: 75%;
+    padding: 20px;
+    background: rgba(255, 245, 220, 0.9);
+    border: 3px solid #5a3b25;
+    border-radius: 18px;
+    overflow-wrap: break-word;
+    z-index: 56;
+    display: none;
+}
+
+#azula {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 100;
+    display: none;
+}
+
+#water {
+    width: 70px;
+    position: absolute;
+    left: 10%;
+    top: 18%;
+    opacity: 0;
+    z-index: 50;
+}
+
+#earth {
+    width: 70px;
+    position: absolute;
+    left: 72%;
+    top: 18%;
+    opacity: 0;
+    z-index: 50;
+}
+
+#fire {
+    width: 70px;
+    position: absolute;
+    left: 10%;
+    top: 71%;
+    opacity: 0;
+    z-index: 50;
+}
+
+#air {
+    width: 70px;
+    position: absolute;
+    left: 72%;
+    top: 71%;
+    opacity: 0;
+    z-index: 50;
+}
+
 #countdown {
     color: antiquewhite;
     font-size: 30px;
+}
+
+#tunnel {
+    position: absolute;
+    width: 100px;
+    top: 300;
+    left: 10;
+    transform: translateX(-50%);
+    transform: translateY(-50%);
+}
+
+#water_text,
+#earth_text,
+#fire_text,
+#air_text {
+    position: absolute;
+    text-align: center;
+    align-content: center;
+    line-height: 2;
+    left: 50%;
+    bottom: 24%;
+    transform: translateX(-50%);
+    width: 85%;
+    height: 50%;
+    padding: 20px;
+    background: rgba(255, 245, 220);
+    border: 3px solid #5a3b25;
+    border-radius: 18px;
+    overflow-wrap: break-word;
+    z-index: 57;
+    display: none;
+}
+
+#book1 {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 0%;
+    left: 0%;
+    display: none;
+    z-index: 55;
+}
+
+#book2 {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 0%;
+    left: 50%;
+    display: none;
+    z-index: 55;
+}
+
+#book3 {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 50%;
+    left: 0%;
+    display: none;
+    z-index: 55;
+}
+
+#book4 {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 50%;
+    left: 50%;
+    display: none;
+    z-index: 55;
+}
+
+#cave {
+    position: absolute;
+    z-index: 57;
+    width: 70px;
+    top: 58%;
+    left: 67%;
+    display: none;
 }
