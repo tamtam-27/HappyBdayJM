@@ -24,7 +24,6 @@
     </div>
 
     <div>
-        <img id="iroh_shadow" src="images/iroh_shadow.png" style="display: none">
         <img id="iroh" src="images/iroh.png" style="display: none">
     </div>
 
@@ -52,27 +51,28 @@
         <div id="water_text">
             <select id="water_select1">
                 <option value="" disabled selected>element...</option>
-                <option value="air">Air</option>
-                <option value="earth">Earth</option>
-                <option value="fire">Fire</option>
-                <option value="water">Water</option>
+                <option value="Air">Air</option>
+                <option value="Earth">Earth</option>
+                <option value="Fire">Fire</option>
+                <option value="Water">Water</option>
             </select>
             is the element of
             <select id="water_select2">
                 <option value="" disabled selected>noun...</option>
-                <option value="power">power</option>
-                <option value="substance">substance</option>
                 <option value="change">change</option>
                 <option value="freedom">freedom</option>
+                <option value="power">power</option>
+                <option value="substance">substance</option>
             </select>
             . <br>
             The people of the
+            <input type="text" id="water_input" readonly>
             <select id="water_select3">
                 <option value="" disabled selected>group...</option>
-                <option value="air nomads">Air Nomads</option>
-                <option value="earth kingdom">Earth Kingdom</option>
-                <option value="fire nation">Fire Nation</option>
-                <option value="water tribe">Water Tribe</option>
+                <option value="kingdom">Kingdom</option>
+                <option value="nation">Nation</option>
+                <option value="nomads">Nomads</option>
+                <option value="Tribe">Tribe</option>
             </select>
             are capable of many things. They have a deep sense of community and love, that holds them together through
             anything.
@@ -85,27 +85,28 @@
         <div id="earth_text">
             <select id="earth_select1">
                 <option value="" disabled selected>element...</option>
-                <option value="air">Air</option>
-                <option value="earth">Earth</option>
-                <option value="fire">Fire</option>
-                <option value="water">Water</option>
+                <option value="Air">Air</option>
+                <option value="Earth">Earth</option>
+                <option value="Fire">Fire</option>
+                <option value="Water">Water</option>
             </select>
             is the element of
             <select id="earth_select2">
                 <option value="" disabled selected>noun...</option>
-                <option value="power">power</option>
-                <option value="substance">substance</option>
                 <option value="change">change</option>
                 <option value="freedom">freedom</option>
+                <option value="power">power</option>
+                <option value="substance">substance</option>
             </select>
             . <br>
             The people of the
+            <input type="text" id="earth_input" readonly>
             <select id="earth_select3">
                 <option value="" disabled selected>group...</option>
-                <option value="air nomads">Air Nomads</option>
-                <option value="earth kingdom">Earth Kingdom</option>
-                <option value="fire nation">Fire Nation</option>
-                <option value="water tribe">Water Tribe</option>
+                <option value="Kingdom">Kingdom</option>
+                <option value="nation">Nation</option>
+                <option value="nomads">Nomads</option>
+                <option value="tribe">Tribe</option>
             </select>
             are diverse and strong. They're persistent and enduring.
             <br>
@@ -117,27 +118,28 @@
         <div id="fire_text">
             <select id="fire_select1">
                 <option value="" disabled selected>element...</option>
-                <option value="air">Air</option>
-                <option value="earth">Earth</option>
-                <option value="fire">Fire</option>
-                <option value="water">Water</option>
+                <option value="Air">Air</option>
+                <option value="Earth">Earth</option>
+                <option value="Fire">Fire</option>
+                <option value="Water">Water</option>
             </select>
             is the element of
             <select id="fire_select2">
                 <option value="" disabled selected>noun...</option>
-                <option value="power">power</option>
-                <option value="substance">substance</option>
                 <option value="change">change</option>
                 <option value="freedom">freedom</option>
+                <option value="power">power</option>
+                <option value="substance">substance</option>
             </select>
             . <br>
             The people of the
+            <input type="text" id="fire_input" readonly>
             <select id="fire_select3">
                 <option value="" disabled selected>group...</option>
-                <option value="air nomads">Air Nomads</option>
-                <option value="earth kingdom">Earth Kingdom</option>
-                <option value="fire nation">Fire Nation</option>
-                <option value="water tribe">Water Tribe</option>
+                <option value="kingdom">Kingdom</option>
+                <option value="Nation">Nation</option>
+                <option value="nomads">Nomads</option>
+                <option value="tribe">Tribe</option>
             </select>
             have desire and will and the energy and drive to achieve what they want.
             <br>
@@ -149,27 +151,28 @@
         <div id="air_text">
             <select id="air_select1">
                 <option value="" disabled selected>element...</option>
-                <option value="air">Air</option>
-                <option value="earth">Earth</option>
-                <option value="fire">Fire</option>
-                <option value="water">Water</option>
+                <option value="Air">Air</option>
+                <option value="Earth">Earth</option>
+                <option value="Fire">Fire</option>
+                <option value="Water">Water</option>
             </select>
             is the element of
             <select id="air_select2">
                 <option value="" disabled selected>noun...</option>
-                <option value="power">power</option>
-                <option value="substance">substance</option>
                 <option value="change">change</option>
                 <option value="freedom">freedom</option>
+                <option value="power">power</option>
+                <option value="substance">substance</option>
             </select>
             . <br>
             The
+            <input type="text" id="air_input" readonly>
             <select id="air_select3">
                 <option value="" disabled selected>group...</option>
-                <option value="air nomads">Air Nomads</option>
-                <option value="earth kingdom">Earth Kingdom</option>
-                <option value="fire nation">Fire Nation</option>
-                <option value="water tribe">Water Tribe</option>
+                <option value="kingdom">Kingdom</option>
+                <option value="nation">Nation</option>
+                <option value="Nomads">Nomads</option>
+                <option value="tribe">Tribe</option>
             </select>
             detached themselves from worldly concerns and found peace and freedom.
             <br>
@@ -187,11 +190,18 @@
         <img id="cave" src="images/cave.png">
     </div>
 
+    <div id="countdown"></div>
     <div>
-        <audio src="The_Avatars_Love.mp3" id="atla_ost"></audio>
+        <img id="dude" src="images/dude.png">
+        <img id="appa" src="images/appa.png">
     </div>
 
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.9.1/tsparticles.confetti.bundle.min.js"></script> -->
+    <div>
+        <audio src="The_Avatars_Love.mp3" id="atla_ost"></audio>
+        <audio src="secret_tunnel.mp3" id="tunnel_ost"></audio>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.9.1/tsparticles.confetti.bundle.min.js"></script>
     <script src="script.js"></script>
 
 </body>

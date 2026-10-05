@@ -11,7 +11,7 @@
 .main {
     position: relative;
     background-color: black;
-    /* background-image: url('images/map.jpg'); */
+    /* background-image: url('images/tunnel2.png'); */
     height: 100dvh;
     background-position: center;
     background-size: 100% 100%;
@@ -28,10 +28,14 @@
 }
 
 #question1 {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    width: 100%;
     color: white;
     text-align: center;
     margin: 15px 0;
-
+    z-index: 60;
 }
 
 .clickable {
@@ -40,7 +44,6 @@
     color: antiquewhite;
     display: block;
     margin: 15px 0;
-    z-index: 60;
 }
 
 #result {
@@ -49,25 +52,18 @@
     margin: 15px 0;
 }
 
-#iroh_shadow {
-    width: 200px;
-    position: absolute;
-    left: 25%;
-    bottom: 40;
-}
-
 #iroh {
     width: 200px;
     position: absolute;
     left: 25%;
-    bottom: 40;
+    bottom: 37;
     z-index: 56;
 }
 
 #iroh_text {
     position: absolute;
     left: 50%;
-    bottom: 37%;
+    bottom: 36%;
     transform: translateX(-50%);
     width: 75%;
     padding: 20px;
@@ -95,7 +91,7 @@
     position: absolute;
     left: 10%;
     top: 18%;
-    opacity: 0;
+    opacity: 20%;
     z-index: 50;
 }
 
@@ -104,7 +100,7 @@
     position: absolute;
     left: 72%;
     top: 18%;
-    opacity: 0;
+    opacity: 20%;
     z-index: 50;
 }
 
@@ -113,7 +109,7 @@
     position: absolute;
     left: 10%;
     top: 71%;
-    opacity: 0;
+    opacity: 20%;
     z-index: 50;
 }
 
@@ -122,13 +118,33 @@
     position: absolute;
     left: 72%;
     top: 71%;
-    opacity: 0;
+    opacity: 20%;
     z-index: 50;
 }
 
 #countdown {
+    position: absolute;
     color: antiquewhite;
     font-size: 30px;
+    text-align: center;
+    top: 3%;
+    left: 50%;
+    transform: translate(-50%);
+    width: 70%;
+    display: none;
+}
+
+#appa {
+    position: absolute;
+    width: 80%;
+    left: 50%;
+    top: -250%;
+    transform: translate(-50%);
+    transition: top 7s ease-out;
+}
+
+#appa.float-down {
+    top: 10%;
 }
 
 #tunnel {
@@ -160,6 +176,20 @@
     overflow-wrap: break-word;
     z-index: 57;
     display: none;
+}
+
+#water_input,
+#earth_input,
+#fire_input,
+#air_input {
+    background: none;
+    width: 50px;
+    border-bottom: 1 black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
 }
 
 #book1 {
@@ -209,4 +239,22 @@
     top: 58%;
     left: 67%;
     display: none;
+}
+
+#dude {
+    position: absolute;
+    width: 1%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 3s linear;
+    visibility: 0;
+}
+
+#dude.big {
+    width: 400%;
+}
+
+#dude.small {
+    width: 1%;
 }

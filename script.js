@@ -1,59 +1,41 @@
-
-
-function changeBG(event) {
-    const id = event.target.id;
-    document.body.style.backgroundImage = `url('images/${id}.jpg')`;
-}
-document.querySelectorAll(".book-buttons").forEach(btn => {
-    btn.addEventListener("click", changeBG)
-});
-
-
-document.querySelectorAll(".clickable").forEach(item => {
-    item.addEventListener("click", function () {
-        const result = document.getElementById("result");
-        if (this.dataset.correct === "Kung Fu Panda 4") {
-            result.textContent = "Nope, it has been too long for that one.";
-            result.style.color = "red";
-        }
-        else if (this.dataset.correct === "Spider-Man: Brand New Day") {
-            result.textContent = "Yes! But I was actually looking for the last one that we have seen at home..."
-            result.style.color = "orange"
-            document.getElementById("iroh_shadow").style.display = "block"
-        }
-        else if (this.dataset.correct === "Avatar Aang: Der Herr der Elemente") {
-            result.textContent = "Exactly that one."
-            result.style.color = "green"
-            document.getElementById("iroh").style.display = "block"
-            setTimeout(() => {
-                document.getElementById("iroh_text").style.display = "block"
-                document.getElementById("question1").style.display = "none"
-                document.body.style.backgroundImage = `url('images/map.jpg')`;
-                document.getElementById("atla_ost").play();
-            }, 2000)
-            setTimeout(() => {
-                document.getElementById("azula").style.display = "block"
-                document.getElementById("canvas").style.display = "block"
-            }, 50000)
-        }
-        else if (this.dataset.correct === "Die Odyssee") {
-            result.textContent = "Almost, but no."
-            result.style.color = "red"
-        }
-        else if (this.dataset.correct === "Mein Nachbar Totoro") {
-            result.textContent = "Puuhhh nahhh"
-            result.style.color = "red"
-        }
-    })
-})
-
-
-//////////
-/// quicktime event by ChatGPT ///
-
+const result = document.getElementById("result");
+const iroh = document.getElementById("iroh")
+const iroh_text = document.getElementById("iroh_text")
+const question1 = document.getElementById("question1")
+const atla_ost = document.getElementById("atla_ost")
+const tunnel_ost = document.getElementById("tunnel_ost")
+const azula = document.getElementById("azula")
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+const book1 = document.getElementById("book1");
+const book2 = document.getElementById("book2");
+const book3 = document.getElementById("book3");
+const book4 = document.getElementById("book4");
+const water_text = document.getElementById("water_text")
+const water_checker = document.getElementById("water-check")
+const water_input = document.getElementById("water_input")
+const water_select1 = document.getElementById("water_select1")
+const earth_text = document.getElementById("earth_text")
+const earth_checker = document.getElementById("earth-check")
+const earth_input = document.getElementById("earth_input")
+const earth_select1 = document.getElementById("earth_select1")
+const fire_text = document.getElementById("fire_text")
+const fire_checker = document.getElementById("fire-check")
+const fire_input = document.getElementById("fire_input")
+const fire_select1 = document.getElementById("fire_select1")
+const air_text = document.getElementById("air_text")
+const air_checker = document.getElementById("air-check")
+const air_input = document.getElementById("air_input")
+const air_select1 = document.getElementById("air_select1")
+const cave = document.getElementById("cave")
+const appa = document.getElementById("appa");
+const countdown = document.getElementById("countdown")
+const dude = document.getElementById("dude")
 
+let waterDone = false;
+let earthDone = false;
+let fireDone = false;
+let airDone = false;
 let points = [];
 let currentSegment = 0;
 let finished = false;
@@ -64,7 +46,12 @@ const player = {
     radius: 16,
     dragging: false
 };
+const playerImage = new Image();
+playerImage.src = "images/lightning.png";
 
+
+//////////////////////////////////
+/// quicktime event by ChatGPT ///
 function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -124,8 +111,6 @@ function drawPoints() {
     });
 }
 
-const playerImage = new Image();
-playerImage.src = "images/lightning.png";
 function drawPlayer() {
     if (playerImage.complete && playerImage.naturalImage !== 0) {
         ctx.drawImage(
@@ -136,7 +121,6 @@ function drawPlayer() {
             player.radius * 2
         );
     } else {
-        // Fallback: draw the circle while image loads
         ctx.beginPath();
         ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
         ctx.fillStyle = "#3498db";
@@ -169,7 +153,6 @@ function distanceToSegment(point, start, end) {
         ((point.x - start.x) * dx +
             (point.y - start.y) * dy) /
         lengthSquared;
-
     t = Math.max(0, Math.min(1, t));
     const closestX = start.x + t * dx;
     const closestY = start.y + t * dy;
@@ -233,8 +216,7 @@ function finish() {
     player.dragging = false;
     document.body.classList.add("finished");
     canvas.style.display = "none";
-    document.getElementById("azula").style.display = "none"
-
+    azula.style.display = "none"
 }
 
 playerImage.onload = () => {
@@ -245,25 +227,56 @@ if (playerImage.complete && playerImage.naturalWidth !== 0) {
 }
 
 window.addEventListener("resize", resize);
+/// end quicktime event by ChatGPT ///
+//////////////////////////////////////
 
-//////////
 
-let waterDone = false;
-let earthDone = false;
-let fireDone = false;
-let airDone = false;
+document.querySelectorAll(".clickable").forEach(item => {
+    item.addEventListener("click", function () {
+        if (this.dataset.correct === "Kung Fu Panda 4") {
+            result.textContent = "Nope, it has been too long for that one.";
+            result.style.color = "red";
+        }
+        else if (this.dataset.correct === "Spider-Man: Brand New Day") {
+            result.textContent = "Yes! But I was actually looking for the last one that we have seen at home..."
+            result.style.color = "orange"
+        }
+        else if (this.dataset.correct === "Avatar Aang: Der Herr der Elemente") {
+            result.textContent = "Exactly that one."
+            result.style.color = "green"
+            iroh.style.display = "block"
+            setTimeout(() => {
+                iroh_text.style.display = "block"
+                question1.style.display = "none"
+                document.body.style.backgroundImage = `url('images/map.jpg')`;
+                atla_ost.play();
+            }, 2000)
+            setTimeout(() => {
+                azula.style.display = "block"
+                canvas.style.display = "block"
+            }, 50000)
+        }
+        else if (this.dataset.correct === "Die Odyssee") {
+            result.textContent = "Almost, but no."
+            result.style.color = "red"
+        }
+        else if (this.dataset.correct === "Mein Nachbar Totoro") {
+            result.textContent = "Puuhhh nahhh"
+            result.style.color = "red"
+        }
+    })
+})
 
-const book1 = document.getElementById("book1");
-const book2 = document.getElementById("book2");
-const book3 = document.getElementById("book3");
-const book4 = document.getElementById("book4");
 function q_water() {
-    const water_text = document.getElementById("water_text")
     water_text.style.display = "block"
     const water_answers = {
-        water_select1: "water", water_select2: "change", water_select3: "water tribe",
+        water_select1: "Water", water_select2: "change", water_select3: "Tribe",
     }
-    const water_checker = document.getElementById("water-check")
+    if (water_select1) {
+        water_select1.addEventListener("change", function () {
+            water_input.value = this.value;
+        })
+    }
     water_checker.addEventListener("click", function () {
         let allCorrect = true;
         for (const [questionId, correctValue] of Object.entries(water_answers)) {
@@ -286,12 +299,15 @@ function q_water() {
 }
 
 function q_earth() {
-    const earth_text = document.getElementById("earth_text")
     earth_text.style.display = "block"
     const earth_answers = {
-        earth_select1: "earth", earth_select2: "substance", earth_select3: "earth kingdom",
+        earth_select1: "Earth", earth_select2: "substance", earth_select3: "Kingdom",
     }
-    const earth_checker = document.getElementById("earth-check")
+    if (earth_select1) {
+        earth_select1.addEventListener("change", function () {
+            earth_input.value = this.value;
+        })
+    }
     earth_checker.addEventListener("click", function () {
         let allCorrect = true;
         for (const [questionId, correctValue] of Object.entries(earth_answers)) {
@@ -314,12 +330,16 @@ function q_earth() {
 }
 
 function q_fire() {
-    const fire_text = document.getElementById("fire_text")
     fire_text.style.display = "block"
     const fire_answers = {
-        fire_select1: "fire", fire_select2: "power", fire_select3: "fire nation",
+        fire_select1: "Fire", fire_select2: "power", fire_select3: "Nation",
     }
-    const fire_checker = document.getElementById("fire-check")
+
+    if (fire_select1) {
+        fire_select1.addEventListener("change", function () {
+            fire_input.value = this.value;
+        })
+    }
     fire_checker.addEventListener("click", function () {
         let allCorrect = true;
         for (const [questionId, correctValue] of Object.entries(fire_answers)) {
@@ -342,12 +362,15 @@ function q_fire() {
 }
 
 function q_air() {
-    const air_text = document.getElementById("air_text")
     air_text.style.display = "block"
     const air_answers = {
-        air_select1: "air", air_select2: "freedom", air_select3: "air nomads",
+        air_select1: "Air", air_select2: "freedom", air_select3: "Nomads",
     }
-    const air_checker = document.getElementById("air-check")
+    if (air_select1) {
+        air_select1.addEventListener("change", function () {
+            air_input.value = this.value;
+        })
+    }
     air_checker.addEventListener("click", function () {
         let allCorrect = true;
         for (const [questionId, correctValue] of Object.entries(air_answers)) {
@@ -371,10 +394,35 @@ function q_air() {
 
 function checkCompletion() {
     if (waterDone && earthDone && fireDone && airDone) {
-        const cave = document.getElementById("cave")
         cave.style.display = "block"
         cave.addEventListener("click", function () {
             console.log("secret tunnel")
+            atla_ost.pause()
+            document.body.style.backgroundImage = `url("images/tunnel.png")`;
+            iroh.style.display = "none";
+            iroh_text.style.display = "none";
+            book1.style.display = "none";
+            book2.style.display = "none";
+            book3.style.display = "none";
+            book4.style.display = "none";
+            cave.style.display = "none";
+            tunnel_ost.play();
+            dude.style.opacity = 1;
+            dude.classList.add("big");
+            setTimeout(() => {
+                document.body.style.backgroundImage = `url("images/tunnel2.png")`;
+                dude.classList.add("small");
+            }, 3000)
+            setTimeout(() => {
+                appa.classList.add("float-down");
+            }, 2000)
+            setTimeout(() => {
+                dude.style.display = "none"
+                fireworks();
+            }, 9000)
+            setTimeout(() => {
+                countdown.style.display = "block";
+            }, 13000)
         })
     }
 }
@@ -383,8 +431,7 @@ function fireworks() {
     if (typeof confetti !== 'function') {
         return;
     }
-
-    const duration = 4 * 1000;
+    const duration = 3 * 1000;
     const animationEnd = Date.now() + duration;
     const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
     function randomInRange(min, max) {
@@ -395,7 +442,7 @@ function fireworks() {
         if (timeLeft <= 0) {
             return clearInterval(interval);
         }
-        const particleCount = 50 * (timeLeft / duration);
+        const particleCount = 40 * (timeLeft / duration);
         confetti(
             Object.assign({}, defaults, {
                 particleCount,
@@ -430,5 +477,4 @@ function countdownMeet() {
     }, 1000);
 };
 
-window.addEventListener('load', fireworks);
 window.addEventListener('load', countdownMeet);
