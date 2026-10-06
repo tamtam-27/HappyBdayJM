@@ -7,41 +7,17 @@ const tunnel_ost = document.getElementById("tunnel_ost")
 const azula = document.getElementById("azula")
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const book1 = document.getElementById("book1");
-const book2 = document.getElementById("book2");
-const book3 = document.getElementById("book3");
-const book4 = document.getElementById("book4");
-const water = document.getElementById("water")
-const water_text = document.getElementById("water_text")
-const water_checker = document.getElementById("water-check")
-const water_input = document.getElementById("water_input")
-const water_select1 = document.getElementById("water_select1")
-const earth = document.getElementById("earth")
-const earth_text = document.getElementById("earth_text")
-const earth_checker = document.getElementById("earth-check")
-const earth_input = document.getElementById("earth_input")
-const earth_select1 = document.getElementById("earth_select1")
-const fire = document.getElementById("fire")
-const fire_text = document.getElementById("fire_text")
-const fire_checker = document.getElementById("fire-check")
-const fire_input = document.getElementById("fire_input")
-const fire_select1 = document.getElementById("fire_select1")
-const air = document.getElementById("air")
-const air_text = document.getElementById("air_text")
-const air_checker = document.getElementById("air-check")
-const air_input = document.getElementById("air_input")
-const air_select1 = document.getElementById("air_select1")
 const cave = document.getElementById("cave")
 const appa = document.getElementById("appa");
 const countdown = document.getElementById("countdown")
 const dude = document.getElementById("dude")
 
-let waterDone = false;
-let earthDone = false;
-let fireDone = false;
-let airDone = false;
+const groups = { "Water": "Tribe", "Earth": "Kingdom", "Fire": "Nation", "Air": "Nomads" }
+
+
+//////////////////////////////////
+/// event by ChatGPT ///
 let points = [];
-let currentSegment = 0;
 let finished = false;
 
 const player = {
@@ -52,16 +28,6 @@ const player = {
 };
 const playerImage = new Image();
 playerImage.src = "images/lightning.png";
-
-
-//////////////////////////////////
-/// quicktime event by ChatGPT ///
-function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    createPath();
-    draw();
-}
 
 function createPath() {
     points = [
@@ -75,10 +41,16 @@ function createPath() {
     player.y = points[0].y;
 }
 
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    createPath();
+    draw();
+}
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawPath();
-    drawPoints();
     drawPlayer();
 }
 
@@ -93,46 +65,16 @@ function drawPath() {
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
     ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(points[0].x, points[0].y);
-    for (let i = 1; i <= currentSegment; i++) {
-        ctx.lineTo(points[i].x, points[i].y);
-    }
-    if (currentSegment < points.length - 1) {
-        ctx.lineTo(player.x, player.y);
-    }
-    ctx.strokeStyle = "#3498db";
-    ctx.lineWidth = 14;
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    ctx.stroke();
-}
-
-function drawPoints() {
-    points.forEach((point, index) => {
-        ctx.beginPath();
-        ctx.arc(point.x, point.y, 8, 0, Math.PI * 2);
-    });
 }
 
 function drawPlayer() {
-    if (playerImage.complete && playerImage.naturalImage !== 0) {
-        ctx.drawImage(
-            playerImage,
-            player.x - player.radius,
-            player.y - player.radius,
-            player.radius * 2,
-            player.radius * 2
-        );
-    } else {
-        ctx.beginPath();
-        ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "#3498db";
-        ctx.fill();
-        ctx.strokeStyle = "#fff";
-        ctx.lineWidth = 3;
-        ctx.stroke();
-    }
+    ctx.drawImage(
+        playerImage,
+        player.x - player.radius,
+        player.y - player.radius,
+        player.radius * 2,
+        player.radius * 2
+    );
 }
 
 function getPointerPosition(event) {
@@ -143,27 +85,36 @@ function getPointerPosition(event) {
     };
 }
 
-function distanceToSegment(point, start, end) {
-    const dx = end.x - start.x;
-    const dy = end.y - start.y;
-    const lengthSquared = dx * dx + dy * dy;
-    if (lengthSquared === 0) {
-        return Math.hypot(
-            point.x - start.x,
-            point.y - start.y
+function getClosestPoint(pointer) {
+    let closest = null;
+    let closestDistance = Infinity;
+    for (let i = 0; i < points.length - 1; i++) {
+        const start = points[i];
+        const end = points[i + 1];
+        const dx = end.x - start.x;
+        const dy = end.y - start.y;
+        const length = dx * dx + dy * dy;
+        let t =
+            ((pointer.x - start.x) * dx +
+                (pointer.y - start.y) * dy) / length;
+        t = Math.max(0, Math.min(1, t));
+        const x = start.x + t * dx;
+        const y = start.y + t * dy;
+        const distance = Math.hypot(
+            pointer.x - x,
+            pointer.y - y
         );
+        if (distance < closestDistance) {
+            closestDistance = distance;
+            closest = {
+                x,
+                y,
+                segment: i,
+                progress: t
+            };
+        }
     }
-    let t =
-        ((point.x - start.x) * dx +
-            (point.y - start.y) * dy) /
-        lengthSquared;
-    t = Math.max(0, Math.min(1, t));
-    const closestX = start.x + t * dx;
-    const closestY = start.y + t * dy;
-    return Math.hypot(
-        point.x - closestX,
-        point.y - closestY
-    );
+    return closest;
 }
 
 canvas.addEventListener("pointerdown", event => {
@@ -182,28 +133,21 @@ canvas.addEventListener("pointerdown", event => {
 canvas.addEventListener("pointermove", event => {
     if (!player.dragging || finished) return;
     const pointer = getPointerPosition(event);
-    const start = points[currentSegment];
-    const end = points[currentSegment + 1];
-    if (distanceToSegment(pointer, start, end) > 40) {
+    const closest = getClosestPoint(pointer);
+    if (Math.hypot(
+        pointer.x - closest.x,
+        pointer.y - closest.y
+    ) > 40) {
         return;
     }
-    const dx = end.x - start.x;
-    const dy = end.y - start.y;
-    const lengthSquared = dx * dx + dy * dy;
-    let t =
-        ((pointer.x - start.x) * dx +
-            (pointer.y - start.y) * dy) /
-        lengthSquared;
-    t = Math.max(0, Math.min(1, t));
-    player.x = start.x + t * dx;
-    player.y = start.y + t * dy;
-    if (t >= 0.99) {
-        player.x = end.x;
-        player.y = end.y;
-        currentSegment++;
-        if (currentSegment >= points.length - 1) {
-            finish();
-        }
+    player.x = closest.x;
+    player.y = closest.y;
+    const lastPoint = points[points.length - 1];
+    if (Math.hypot(
+        player.x - lastPoint.x,
+        player.y - lastPoint.y
+    ) < 5) {
+        finish();
     }
     draw();
 });
@@ -220,18 +164,15 @@ function finish() {
     player.dragging = false;
     document.body.classList.add("finished");
     canvas.style.display = "none";
-    azula.style.display = "none"
+    azula.style.display = "none";
 }
 
-playerImage.onload = () => {
-    resize()
-}
+playerImage.onload = resize;
 if (playerImage.complete && playerImage.naturalWidth !== 0) {
     resize();
 }
-
 window.addEventListener("resize", resize);
-/// end quicktime event by ChatGPT ///
+/// end event by ChatGPT ///
 //////////////////////////////////////
 
 
@@ -242,19 +183,19 @@ document.querySelectorAll(".clickable").forEach(item => {
             result.style.color = "red";
         }
         else if (this.dataset.correct === "Spider-Man: Brand New Day") {
-            result.textContent = "Yes! But I was actually looking for the last one that we have seen at home..."
+            result.textContent = "Yes, and what about the last one that we have seen at home?"
             result.style.color = "orange"
         }
         else if (this.dataset.correct === "Avatar Aang: Der Herr der Elemente") {
-            result.textContent = "Exactly that one."
+            result.textContent = "Exactly that one. And turn your volume on."
             result.style.color = "green"
-            iroh.style.display = "block"
+            atla_ost.play();
             setTimeout(() => {
+                iroh.style.display = "block"
                 iroh_text.style.display = "block"
                 question1.style.display = "none"
                 document.body.style.backgroundImage = `url('images/map.jpg')`;
-                atla_ost.play();
-            }, 2000)
+            }, 2100)
             setTimeout(() => {
                 azula.style.display = "block"
                 canvas.style.display = "block"
@@ -271,149 +212,113 @@ document.querySelectorAll(".clickable").forEach(item => {
     })
 })
 
-function q_water() {
-    water_text.style.display = "block"
-    const water_answers = {
-        water_select1: "Water", water_select2: "change", water_select3: "Tribe",
-    }
-    if (water_select1) {
-        water_select1.addEventListener("change", function () {
-            water_input.value = this.value;
+const elementare = [
+    {
+        el: "water",
+        el_text: "water_text",
+        el_select1: "water_select1",
+        el_input: "water_input",
+        el_check: "water_check",
+        elDone: "waterDone",
+        book: "book1",
+        answers: {
+            water_select1: "Water",
+            water_select2: "change"
+        }
+    },
+    {
+        el: "earth",
+        el_text: "earth_text",
+        el_select1: "earth_select1",
+        el_input: "earth_input",
+        el_check: "earth_check",
+        elDone: "earthDone",
+        book: "book2",
+        answers: {
+            earth_select1: "Earth",
+            earth_select2: "substance"
+        }
+    },
+    {
+        el: "fire",
+        el_text: "fire_text",
+        el_select1: "fire_select1",
+        el_input: "fire_input",
+        el_check: "fire_check",
+        elDone: "fireDone",
+        book: "book3",
+        answers: {
+            fire_select1: "Fire",
+            fire_select2: "power"
+        }
+    },
+    {
+        el: "air",
+        el_text: "air_text",
+        el_select1: "air_select1",
+        el_input: "air_input",
+        el_check: "air_check",
+        elDone: "airDone",
+        book: "book4",
+        answers: {
+            air_select1: "Air",
+            air_select2: "freedom"
+        }
+    },
+]
+
+function eleQuest(el) {
+    const element = elementare.find(item => item.el === el);
+    const el_text = document.getElementById(element.el_text);
+    const el_select1 = document.getElementById(element.el_select1);
+    const el_input = document.getElementById(element.el_input);
+    const el_check = document.getElementById(element.el_check);
+    const book = document.getElementById(element.book);
+    const answers = element.answers;
+
+    el_text.style.display = "block"
+    if (el_select1) {
+        el_select1.addEventListener("change", function () {
+            el_input.value = this.value + " " + groups[this.value];
         })
     }
-    water_checker.addEventListener("click", function () {
+    el_check.addEventListener("click", function () {
         let allCorrect = true;
-        for (const [questionId, correctValue] of Object.entries(water_answers)) {
+        for (const [questionId, correctValue] of Object.entries(answers)) {
             const selectElement = document.getElementById(questionId);
-            const userAnswer = selectElement.value;
-            if (userAnswer !== correctValue) {
+            if (selectElement.value !== correctValue) {
                 allCorrect = false;
+                break
             }
         }
+        const elDone = element.elDone
         if (allCorrect) {
-            book1.style.display = "block";
-            water_text.style.display = "none";
-            waterDone = true;
+            book.style.display = "block";
+            el_text.style.display = "none";
+            window[elDone] = true;
             checkCompletion();
         }
         else {
-            water_text.style.display = "none";
-        }
-    })
-}
-
-function q_earth() {
-    earth_text.style.display = "block"
-    const earth_answers = {
-        earth_select1: "Earth", earth_select2: "substance", earth_select3: "Kingdom",
-    }
-    if (earth_select1) {
-        earth_select1.addEventListener("change", function () {
-            earth_input.value = this.value;
-        })
-    }
-    earth_checker.addEventListener("click", function () {
-        let allCorrect = true;
-        for (const [questionId, correctValue] of Object.entries(earth_answers)) {
-            const selectElement = document.getElementById(questionId);
-            const userAnswer = selectElement.value;
-            if (userAnswer !== correctValue) {
-                allCorrect = false;
-            }
-        }
-        if (allCorrect) {
-            book2.style.display = "block"
-            earth_text.style.display = "none";
-            earthDone = true;
-            checkCompletion();
-        }
-        else {
-            earth_text.style.display = "none";
-        }
-    })
-}
-
-function q_fire() {
-    fire_text.style.display = "block"
-    const fire_answers = {
-        fire_select1: "Fire", fire_select2: "power", fire_select3: "Nation",
-    }
-
-    if (fire_select1) {
-        fire_select1.addEventListener("change", function () {
-            fire_input.value = this.value;
-        })
-    }
-    fire_checker.addEventListener("click", function () {
-        let allCorrect = true;
-        for (const [questionId, correctValue] of Object.entries(fire_answers)) {
-            const selectElement = document.getElementById(questionId);
-            const userAnswer = selectElement.value;
-            if (userAnswer !== correctValue) {
-                allCorrect = false;
-            }
-        }
-        if (allCorrect) {
-            book3.style.display = "block"
-            fire_text.style.display = "none";
-            fireDone = true;
-            checkCompletion();
-        }
-        else {
-            fire_text.style.display = "none";
-        }
-    })
-}
-
-function q_air() {
-    air_text.style.display = "block"
-    const air_answers = {
-        air_select1: "Air", air_select2: "freedom", air_select3: "Nomads",
-    }
-    if (air_select1) {
-        air_select1.addEventListener("change", function () {
-            air_input.value = this.value;
-        })
-    }
-    air_checker.addEventListener("click", function () {
-        let allCorrect = true;
-        for (const [questionId, correctValue] of Object.entries(air_answers)) {
-            const selectElement = document.getElementById(questionId);
-            const userAnswer = selectElement.value;
-            if (userAnswer !== correctValue) {
-                allCorrect = false;
-            }
-        }
-        if (allCorrect) {
-            book4.style.display = "block"
-            air_text.style.display = "none";
-            airDone = true;
-            checkCompletion();
-        }
-        else {
-            air_text.style.display = "none";
+            el_text.style.display = "none";
         }
     })
 }
 
 function checkCompletion() {
-    if (waterDone && earthDone && fireDone && airDone) {
+    const allDone = elementare.every(q => window[q.elDone]);
+
+    if (allDone) {
         cave.style.display = "block"
         cave.addEventListener("click", function () {
-            console.log("secret tunnel")
             atla_ost.pause()
             document.body.style.backgroundImage = `url("images/tunnel.png")`;
+            elementare.forEach(q => {
+                document.getElementById(q.book).style.display = "none"
+                document.getElementById(q.el).style.display = "none"
+            })
             iroh.style.display = "none";
             iroh_text.style.display = "none";
-            book1.style.display = "none";
-            book2.style.display = "none";
-            book3.style.display = "none";
-            book4.style.display = "none";
             cave.style.display = "none";
-            water.style.display = "none"
-            earth.style.display = "none"
-            fire.style.display = "none"
-            air.style.display = "none"
             tunnel_ost.play();
             setTimeout(() => {
                 dude.style.opacity = 1;
@@ -469,7 +374,7 @@ function fireworks() {
 };
 
 function countdownMeet() {
-    var endDate = new Date("October 25, 2026 17:00:00").getTime();
+    var endDate = new Date("October 24, 2026 17:00:00").getTime();
     var x = setInterval(function () {
         var now = new Date().getTime();
         var distance = endDate - now;

@@ -9,12 +9,10 @@
 <body class="main">
 
     <div id="question1">
-        <br>
         <label>
             What was the last movie that we have seen together?
         </label>
         <div id="result"></div>
-
         <span class="clickable" data-correct="Kung Fu Panda 4">Kung Fu Panda 4</span>
         <span class="clickable" data-correct="Spider-Man: Brand New Day">Spider-Man: Brand New Day</span>
         <span class="clickable" data-correct="Avatar Aang: Der Herr der Elemente">Avatar Aang: Der Herr der
@@ -23,31 +21,32 @@
         <span class="clickable" data-correct="Mein Nachbar Totoro">Mein Nachbar Totoro</span>
     </div>
 
-    <div>
-        <img id="iroh" src="images/iroh.png" style="display: none">
-    </div>
+    <img id="iroh" src="images/iroh.png" style="display: none">
+    <img id="cave" src="images/cave.png">
+    <img id="dude" src="images/dude.png">
+    <img id="appa" src="images/appa.png">
 
-    <div>
-        <img id="book1" src="images/book1.jpg">
-        <img id="book2" src="images/book2.jpg">
-        <img id="book3" src="images/book3.jpg">
-        <img id="book4" src="images/book4.jpg">
-    </div>
+    <div id="countdown"></div>
+
+    <img id="book1" src="images/book1.jpg">
+    <img id="book2" src="images/book2.jpg">
+    <img id="book3" src="images/book3.jpg">
+    <img id="book4" src="images/book4.jpg">
 
     <div id="iroh_text">
-        My dear lady, <br>
+        Behold, my dear lady, <br>
         a task awaits in this arcady, <br>
-        remind my nephew of the elements,<br>
-        each one for its prominence.<br>
+        remind my nephew and your own,<br>
+        of what the elements are known.<br>
         <br>
         Clickable are the corners four,<br>
-        thinking required, but don't get sore,<br>
-        beware of the princesses thunderstruck,<br>
-        and for now, I wish you luck.<br>
+        get one right and the city shows before,<br>
+        for now, I wish you luck,<br>
+        but beware of the princesses thunderstruck.<br>
     </div>
 
     <div class="elements">
-        <img id="water" src="images/water.png" onclick="q_water()">
+        <img id="water" src="images/water.png" onclick="eleQuest('water')">
         <div id="water_text">
             <select id="water_select1">
                 <option value="" disabled selected>element...</option>
@@ -67,21 +66,14 @@
             . <br>
             The people of the
             <input type="text" id="water_input" readonly>
-            <select id="water_select3">
-                <option value="" disabled selected>group...</option>
-                <option value="kingdom">Kingdom</option>
-                <option value="nation">Nation</option>
-                <option value="nomads">Nomads</option>
-                <option value="Tribe">Tribe</option>
-            </select>
-            are capable of adapting to many things. They have a deep sense of community and love, that holds them
+            are capable of adapting to many things. They have a deep sense of community and love that holds them
             together through anything.
             <br>
             <br>
             <br>
-            <button id="water-check">back</button>
+            <button id="water_check">OK</button>
         </div>
-        <img id="earth" src="images/earth.png" onclick="q_earth()">
+        <img id="earth" src="images/earth.png" onclick="eleQuest('earth')">
         <div id="earth_text">
             <select id="earth_select1">
                 <option value="" disabled selected>element...</option>
@@ -101,20 +93,13 @@
             . <br>
             The people of the
             <input type="text" id="earth_input" readonly>
-            <select id="earth_select3">
-                <option value="" disabled selected>group...</option>
-                <option value="Kingdom">Kingdom</option>
-                <option value="nation">Nation</option>
-                <option value="nomads">Nomads</option>
-                <option value="tribe">Tribe</option>
-            </select>
             are diverse and strong. They're persistent and enduring.
             <br>
             <br>
             <br>
-            <button id="earth-check">back</button>
+            <button id="earth_check">OK</button>
         </div>
-        <img id="fire" src="images/fire.png" onclick="q_fire()">
+        <img id="fire" src="images/fire.png" onclick="eleQuest('fire')">
         <div id="fire_text">
             <select id="fire_select1">
                 <option value="" disabled selected>element...</option>
@@ -134,20 +119,13 @@
             . <br>
             The people of the
             <input type="text" id="fire_input" readonly>
-            <select id="fire_select3">
-                <option value="" disabled selected>group...</option>
-                <option value="kingdom">Kingdom</option>
-                <option value="Nation">Nation</option>
-                <option value="nomads">Nomads</option>
-                <option value="tribe">Tribe</option>
-            </select>
             have desire and will and the energy and drive to achieve what they want.
             <br>
             <br>
             <br>
-            <button id="fire-check">back</button>
+            <button id="fire_check">OK</button>
         </div>
-        <img id="air" src="images/air.png" onclick="q_air()">
+        <img id="air" src="images/air.png" onclick="eleQuest('air')">
         <div id="air_text">
             <select id="air_select1">
                 <option value="" disabled selected>element...</option>
@@ -167,46 +145,16 @@
             . <br>
             The
             <input type="text" id="air_input" readonly>
-            <select id="air_select3">
-                <option value="" disabled selected>group...</option>
-                <option value="kingdom">Kingdom</option>
-                <option value="nation">Nation</option>
-                <option value="Nomads">Nomads</option>
-                <option value="tribe">Tribe</option>
-            </select>
             detached themselves from worldly concerns and found peace and freedom.
             <br>
             <br>
             <br>
-            <button id="air-check">back</button>
+            <button id="air_check">OK</button>
         </div>
     </div>
 
-    <!-- <div id="iroh_text2">
-        <p>It is important to draw wisdom from many different places.</p>
-        <br>
-        <p>If we take it from only one place, it becomes rigid and stale.</p>
-        <br>
-        <p>Understanding others - the other elements and the other nations - will help you become whole.</p>
-        <br>
-        <br>
-        <p>...<br>Just something to have in mind again.</p>
-    </div> -->
-
-    <div>
-        <img id="azula" src="images/azula.jpg">
-    </div>
+    <img id="azula" src="images/azula.jpg">
     <canvas id="canvas"></canvas>
-
-    <div>
-        <img id="cave" src="images/cave.png">
-    </div>
-
-    <div id="countdown"></div>
-    <div>
-        <img id="dude" src="images/dude.png">
-        <img id="appa" src="images/appa.png">
-    </div>
 
     <div>
         <audio src="The_Avatars_Love.mp3" id="atla_ost"></audio>

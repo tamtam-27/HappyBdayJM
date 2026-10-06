@@ -56,8 +56,8 @@
     width: 200px;
     position: absolute;
     left: 25%;
-    bottom: 37;
-    z-index: 56;
+    bottom: 33;
+    z-index: 57;
 }
 
 #iroh_text {
@@ -183,7 +183,7 @@
 #fire_input,
 #air_input {
     background: none;
-    width: 50px;
+    width: 100px;
     border-bottom: 1 black;
     border-top: none;
     border-left: none;
@@ -248,7 +248,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     transition: width 3.5s linear;
-    visibility: 0;
+    opacity: 0;
 }
 
 #dude.big {
